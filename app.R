@@ -12,7 +12,7 @@ library("shiny")
 library("ggplot2")
 library("GGally")
 library("plotly")
-
+# setwd("/Users/amiee/Desktop/Homework/data_viz")
 data <- read.csv("dataset_Facebook.csv", sep = ";")
 
 ui <- fluidPage(
@@ -53,9 +53,7 @@ server <- function(input, output)  {
   })
   
   output$plot3 <- renderPlotly({
-    df <- data[c("Post.Month", "Post.Weekday",
-                 "Post.Hour", 
-                 "Type")]
+    df <- data[c("Post.Month","Paid", "Post.Weekday", "Type")]
     p <- ggparcoord(df, 1:3, groupColumn= "Type", showPoints = T) + theme_bw()
     p <- p + guides(fill=guide_legend(title="Type(Click)")) 
     p <- p + scale_x_discrete("Post Time")  + scale_y_discrete("Posts")
